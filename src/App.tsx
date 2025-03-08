@@ -115,7 +115,7 @@ function App() {
 
   const sendNotification = async (companyName: string, renewalDate: string) => {
     try {
-      await axios.post("http://localhost:5000/send-notification", {
+      await axios.post("https://lobster-app-jdc67.ondigitalocean.app/send-notification", {
         email: "yamuna@craftech360.com",
         subject: "Subscription Renewal Reminder",
         text: `Your subscription for ${companyName} is due for renewal on ${format(new Date(renewalDate), "MMM dd, yyyy")}.`,

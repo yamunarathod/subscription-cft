@@ -60,7 +60,7 @@ function App() {
         { duration: 5000 },
       )
 
-      sendNotification(sub.company_name, sub.renewal_date)
+      // sendNotification(sub.company_name, sub.renewal_date)
     })
   }, [subscriptions])
 
@@ -113,17 +113,17 @@ function App() {
     }
   }
 
-  const sendNotification = async (companyName: string, renewalDate: string) => {
-    try {
-      await axios.post("https://lobster-app-jdc67.ondigitalocean.app/send-notification", {
-        email: "yamuna@craftech360.com",
-        subject: "Subscription Renewal Reminder",
-        text: `Your subscription for ${companyName} is due for renewal on ${format(new Date(renewalDate), "MMM dd, yyyy")}.`,
-      })
-    } catch (error) {
-      console.error("Error sending notification:", error)
-    }
-  }
+  // const sendNotification = async (companyName: string, renewalDate: string) => {
+  //   try {
+  //     await axios.post("https://lobster-app-jdc67.ondigitalocean.app/send-notification", {
+  //       email: "yamuna@craftech360.com",
+  //       subject: "Subscription Renewal Reminder",
+  //       text: `Your subscription for ${companyName} is due for renewal on ${format(new Date(renewalDate), "MMM dd, yyyy")}.`,
+  //     })
+  //   } catch (error) {
+  //     console.error("Error sending notification:", error)
+  //   }
+  // }
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 p-4 md:p-8">

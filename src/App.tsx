@@ -133,30 +133,35 @@ function App() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 p-4 md:p-8">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 dark:from-gray-900 dark:via-slate-900 dark:to-gray-800 p-6 md:p-10">
       <Toaster position="top-right" />
-      <div className="max-w-6xl mx-auto">
-        <div className="flex justify-between items-center mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-purple-600">
-              Subscription Tracker
-            </span>
-          </h1>
+      <div className="max-w-7xl mx-auto">
+        <div className="flex justify-between items-center mb-12">
+          <div>
+            <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-2">
+              <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 via-purple-600 to-blue-800">
+                Subscription Tracker
+              </span>
+            </h1>
+            <p className="text-gray-600 dark:text-gray-300 text-lg">Manage all your subscriptions in one place</p>
+          </div>
           <button
             onClick={fetchSubscriptions}
-            className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+            className="flex items-center gap-3 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-200 px-6 py-3 rounded-xl shadow-md hover:shadow-lg transition-all duration-200 border border-gray-200 dark:border-gray-600"
           >
-            <RefreshCw size={16} />
-            <span>Refresh</span>
+            <RefreshCw size={20} />
+            <span className="font-medium">Refresh</span>
           </button>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div className="md:col-span-2">
-            <div className="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden border border-gray-100 dark:border-gray-700">
-              <div className="p-6">
-                <h2 className="text-xl font-semibold mb-4 text-gray-900 dark:text-white flex items-center gap-2">
-                  <CreditCard size={20} className="text-blue-500" />
+        <div className="grid grid-cols-1 xl:grid-cols-3 gap-10">
+          <div className="xl:col-span-2">
+            <div className="bg-white/80 dark:bg-gray-800/90 backdrop-blur-sm rounded-2xl shadow-xl border border-white/20 dark:border-gray-700/50">
+              <div className="p-8">
+                <h2 className="text-2xl font-bold mb-6 text-gray-900 dark:text-white flex items-center gap-3">
+                  <div className="p-2 bg-gradient-to-r from-blue-500 to-purple-600 rounded-xl">
+                    <CreditCard size={24} className="text-white" />
+                  </div>
                   Your Subscriptions
                 </h2>
                 {loading ? (
@@ -164,46 +169,55 @@ function App() {
                     <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500"></div>
                   </div>
                 ) : subscriptions.length === 0 ? (
-                  <div className="text-center py-10 text-gray-500 dark:text-gray-400">
-                    <div className="flex justify-center mb-3">
-                      <CreditCard size={40} className="text-gray-300 dark:text-gray-600" />
+                  <div className="text-center py-16 text-gray-500 dark:text-gray-400">
+                    <div className="flex justify-center mb-6">
+                      <div className="p-4 bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-700 dark:to-gray-600 rounded-2xl">
+                        <CreditCard size={48} className="text-gray-400 dark:text-gray-500" />
+                      </div>
                     </div>
-                    <p>No subscriptions added yet.</p>
-                    <p className="text-sm mt-1">Add your first subscription to get started.</p>
+                    <h3 className="text-xl font-semibold text-gray-700 dark:text-gray-300 mb-2">No subscriptions yet</h3>
+                    <p className="text-gray-600 dark:text-gray-400">Add your first subscription to get started tracking your expenses.</p>
                   </div>
                 ) : (
-                  <div className="space-y-4">
+                  <div className="space-y-6">
                     {subscriptions.map((sub) => (
                       <div
                         key={sub.id}
-                        className="border border-gray-100 dark:border-gray-700 rounded-lg p-4 hover:shadow-md transition-shadow bg-white dark:bg-gray-800"
+                        className="group bg-gradient-to-r from-white to-gray-50 dark:from-gray-800 dark:to-gray-750 border border-gray-200/60 dark:border-gray-600/40 rounded-2xl p-6 hover:shadow-2xl hover:scale-[1.02] transition-all duration-300 backdrop-blur-sm"
                       >
                         <div className="flex justify-between items-start">
-                          <div>
-                            <h3 className="font-semibold text-gray-900 dark:text-white">{sub.company_name}</h3>
-                            <p className="text-sm text-gray-600 dark:text-gray-300 mt-1">{sub.description}</p>
-                            <div className="flex items-center gap-4 mt-3">
-                              <div className="flex items-center gap-1 text-sm font-medium text-gray-700 dark:text-gray-200">
-                                <DollarSign size={16} className="text-green-500" />
-                                ${Number(sub.amount).toFixed(2)}
+                          <div className="flex-1">
+                            <div className="flex items-center gap-3 mb-3">
+                              <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center text-white font-bold text-lg">
+                                {sub.company_name.charAt(0).toUpperCase()}
                               </div>
-                              <div className="flex items-center gap-1 text-sm text-gray-700 dark:text-gray-200">
-                                <Calendar size={16} className="text-blue-500" />
-                                {format(new Date(sub.renewal_date), "MMM dd, yyyy")}
+                              <div>
+                                <h3 className="text-xl font-bold text-gray-900 dark:text-white">{sub.company_name}</h3>
+                                <p className="text-lg font-semibold text-gray-700 dark:text-gray-200 leading-relaxed">{sub.description}</p>
                               </div>
                             </div>
-                            {isPast(new Date(sub.renewal_date)) && (
-                              <span className="inline-block mt-2 text-xs bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-300 px-2 py-1 rounded-full">
-                                Overdue
-                              </span>
-                            )}
+                            <div className="flex items-center gap-6 mt-4">
+                              <div className="flex items-center gap-2 bg-green-50 dark:bg-green-900/20 px-4 py-2 rounded-xl">
+                                <DollarSign size={20} className="text-green-600 dark:text-green-400" />
+                                <span className="text-lg font-bold text-green-700 dark:text-green-300">${Number(sub.amount).toFixed(2)}</span>
+                              </div>
+                              <div className="flex items-center gap-2 bg-blue-50 dark:bg-blue-900/20 px-4 py-2 rounded-xl">
+                                <Calendar size={20} className="text-blue-600 dark:text-blue-400" />
+                                <span className="text-sm font-semibold text-blue-700 dark:text-blue-300">{format(new Date(sub.renewal_date), "MMM dd, yyyy")}</span>
+                              </div>
+                              {isPast(new Date(sub.renewal_date)) && (
+                                <span className="bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-300 px-4 py-2 rounded-xl text-sm font-semibold">
+                                  Overdue
+                                </span>
+                              )}
+                            </div>
                           </div>
                           <button
                             onClick={() => handleDelete(sub.id)}
-                            className="text-gray-400 hover:text-red-500 dark:text-gray-500 dark:hover:text-red-400 transition-colors p-1 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700"
+                            className="opacity-0 group-hover:opacity-100 text-gray-400 hover:text-red-500 dark:text-gray-500 dark:hover:text-red-400 transition-all duration-200 p-3 rounded-xl hover:bg-red-50 dark:hover:bg-red-900/20"
                             aria-label="Delete subscription"
                           >
-                            <Trash2 size={18} />
+                            <Trash2 size={20} />
                           </button>
                         </div>
                       </div>
@@ -214,38 +228,40 @@ function App() {
             </div>
           </div>
 
-          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6 border border-gray-100 dark:border-gray-700 h-fit">
-            <div className="flex items-center gap-2 mb-4">
-              <Plus size={20} className="text-green-500" />
-              <h2 className="text-xl font-semibold text-gray-900 dark:text-white">Add New Subscription</h2>
+          <div className="bg-white/80 dark:bg-gray-800/90 backdrop-blur-sm rounded-2xl shadow-xl p-8 border border-white/20 dark:border-gray-700/50 h-fit sticky top-6">
+            <div className="flex items-center gap-3 mb-6">
+              <div className="p-2 bg-gradient-to-r from-green-500 to-emerald-600 rounded-xl">
+                <Plus size={24} className="text-white" />
+              </div>
+              <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Add Subscription</h2>
             </div>
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <form onSubmit={handleSubmit} className="space-y-6">
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Subscription Name</label>
+                <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3">Subscription Name</label>
                 <input
                   type="text"
                   required
                   value={formData.company_name}
                   onChange={(e) => setFormData({ ...formData, company_name: e.target.value })}
-                  className="w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 px-3 py-2 text-gray-900 dark:text-white shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 dark:focus:ring-blue-500/30 outline-none transition-shadow"
+                  className="w-full rounded-xl border-2 border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 px-4 py-3 text-gray-900 dark:text-white shadow-sm focus:border-blue-500 focus:bg-white dark:focus:bg-gray-600 focus:ring-4 focus:ring-blue-500/10 outline-none transition-all duration-200"
                   placeholder="Netflix, Spotify, etc."
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Description</label>
+                <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3">Description</label>
                 <textarea
                   value={formData.description}
                   onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                  className="w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 px-3 py-2 text-gray-900 dark:text-white shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 dark:focus:ring-blue-500/30 outline-none transition-shadow"
+                  className="w-full rounded-xl border-2 border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 px-4 py-3 text-gray-900 dark:text-white shadow-sm focus:border-blue-500 focus:bg-white dark:focus:bg-gray-600 focus:ring-4 focus:ring-blue-500/10 outline-none transition-all duration-200 resize-none"
                   placeholder="Premium plan, family subscription, etc."
-                  rows={3}
+                  rows={4}
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Amount ($)</label>
+                <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3">Amount ($)</label>
                 <div className="relative">
-                  <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                    <DollarSign size={16} className="text-gray-500 dark:text-gray-400" />
+                  <div className="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none">
+                    <DollarSign size={20} className="text-gray-500 dark:text-gray-400" />
                   </div>
                   <input
                     type="number"
@@ -253,31 +269,31 @@ function App() {
                     step="0.01"
                     value={formData.amount}
                     onChange={(e) => setFormData({ ...formData, amount: e.target.value })}
-                    className="w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 pl-9 pr-3 py-2 text-gray-900 dark:text-white shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 dark:focus:ring-blue-500/30 outline-none transition-shadow"
+                    className="w-full rounded-xl border-2 border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 pl-12 pr-4 py-3 text-gray-900 dark:text-white shadow-sm focus:border-blue-500 focus:bg-white dark:focus:bg-gray-600 focus:ring-4 focus:ring-blue-500/10 outline-none transition-all duration-200"
                     placeholder="9.99"
                   />
                 </div>
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Renewal Date</label>
+                <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3">Renewal Date</label>
                 <div className="relative">
-                  <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                    <Calendar size={16} className="text-gray-500 dark:text-gray-400" />
+                  <div className="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none">
+                    <Calendar size={20} className="text-gray-500 dark:text-gray-400" />
                   </div>
                   <input
                     type="date"
                     required
                     value={formData.renewal_date}
                     onChange={(e) => setFormData({ ...formData, renewal_date: e.target.value })}
-                    className="w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 pl-9 pr-3 py-2 text-gray-900 dark:text-white shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 dark:focus:ring-blue-500/30 outline-none transition-shadow"
+                    className="w-full rounded-xl border-2 border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 pl-12 pr-4 py-3 text-gray-900 dark:text-white shadow-sm focus:border-blue-500 focus:bg-white dark:focus:bg-gray-600 focus:ring-4 focus:ring-blue-500/10 outline-none transition-all duration-200"
                   />
                 </div>
               </div>
               <button
                 type="submit"
-                className="w-full bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white py-2 px-4 rounded-lg transition-colors shadow-md hover:shadow-lg flex items-center justify-center gap-2"
+                className="w-full bg-gradient-to-r from-blue-600 via-purple-600 to-blue-700 hover:from-blue-700 hover:via-purple-700 hover:to-blue-800 text-white py-4 px-6 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-[1.02] flex items-center justify-center gap-3 font-semibold text-lg"
               >
-                <Plus size={18} />
+                <Plus size={20} />
                 Add Subscription
               </button>
             </form>

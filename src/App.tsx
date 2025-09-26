@@ -67,7 +67,7 @@ function App() {
   const fetchSubscriptions = async () => {
     try {
       const { data, error } = await supabase
-        .from("subscriptions")
+        .from("software_subscriptions")
         .select("*")
         .order("renewal_date", { ascending: true })
 
@@ -91,7 +91,7 @@ function App() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     try {
-      const { error } = await supabase.from("subscriptions").insert([
+      const { error } = await supabase.from("software_subscriptions").insert([
         {
           ...formData,
           amount: Number.parseFloat(formData.amount),
@@ -110,7 +110,7 @@ function App() {
 
   const handleDelete = async (id: string) => {
     try {
-      const { error } = await supabase.from("subscriptions").delete().eq("id", id)
+      const { error } = await supabase.from("software_subscriptions").delete().eq("id", id)
       if (error) throw error
       toast.success("Subscription deleted successfully")
       fetchSubscriptions()
